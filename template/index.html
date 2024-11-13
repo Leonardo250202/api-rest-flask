@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de Tareas</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <form method="POST" action="/tasks">
+        <input type="text" name="title" placeholder="Nueva tarea" required>
+        <button type="submit">Agregar Tarea</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <strong>{{ task.title }}</strong> 
+                {% if task.done %}
+                    <span style="color: rgb(107, 0, 128);">[Completada]</span>
+                {% else %}
+                    <form method="POST" action="/tasks/{{ task.id }}/complete" style="display:inline;">
+                        <button type="submit">Marcar como completada</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
